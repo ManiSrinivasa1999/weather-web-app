@@ -12,17 +12,66 @@
       ></v-text-field>
     </div>
     <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
-      <div class="location-box">
-        <div class="location">
-          {{ weather.name }}, {{ weather.sys.country }}
-        </div>
-        <div class="date">{{ dateBuilder() }}</div>
-      </div>
+      <v-card
+        class="mx-auto rounded-lg"
+      >
+        <v-list-item two-line>
+          <v-list-item-content>
+            <v-list-item-title class="headline">
+              {{ weather.name }}, {{ weather.sys.country }}
+            </v-list-item-title>
+            <v-list-item-subtitle>{{ dateBuilder() }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-      <div class="weather-box">
-        <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
-        <div class="weather">{{ weather.weather[0].main }}</div>
-      </div>
+        <v-card-text>
+          <v-row align="center">
+            <v-col
+              class="display-3 font-weight-bold black--text"
+              cols="6"
+            >
+              {{ Math.round(weather.main.temp) }}&deg;C
+            </v-col>
+            <v-col cols="6">
+              {{ weather.weather[0].main }}
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6">
+              <v-card
+                color="#F5FAFF"
+                width="150px"
+              >
+                <v-card-text>
+                  <span class="font-weight-black text-h6">
+                    Pressure
+                  </span>
+                  <br>
+                  <span class="font-weight-bold text-subtitle-1">
+                    {{ weather.main.pressure }} hpa
+                  </span>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="6">
+              <v-card
+                color="#F5FAFF"
+                width="150px"
+              >
+                <v-card-text>
+                  <span class="font-weight-black text-h6">
+                    Humidity
+                  </span>
+                  <br>
+                  <span class="font-weight-bold text-subtitle-1">
+                    {{ weather.main.humidity }} %
+                  </span>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
@@ -52,6 +101,7 @@ export default {
     setResults(results) {
       this.search = '';
       this.weather = results;
+      console.log(this.weather);
     },
     dateBuilder() {
       const d = new Date();
